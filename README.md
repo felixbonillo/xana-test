@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Farmacia Xana — Store Locator System
 
-## Getting Started
+Implementación técnica de alta fidelidad del sistema de localización de sucursales de Farmacia Xana.
 
-First, run the development server:
+Este proyecto está diseñado siguiendo principios de Clean Architecture y una metodología Feature-First, separando infraestructura, dominio y presentación.
+
+## Tecnologías principales
+
+- **Next.js 15+ (App Router)** — Client Components optimizados y Server-side Font Optimization.
+- **TypeScript (strict)** — Sin `any`; interfaces compartidas entre store, hooks y componentes.
+- **Tailwind CSS v4.1** — Tokens de diseño.
+- **Zustand** — Estado global ligero para paginación y filtrado de regiones.
+- **TanStack Query v5** — Cacheo y sincronización de estado del servidor.
+
+## Arquitectura (Separation of Concerns)
+
+La aplicación se organiza en capas siguiendo SOLID:
+
+- **Capa de Infraestructura (Data Layer)**: Hooks como `usePharmacyLocator` para consumo de API y manejo de errores.
+- **Lógica de Aplicación (Custom Hooks)**:
+	- `usePharmacyLogic`: lógica de paginación (sliding window) y construcción de URLs de Google Maps.
+	- `useLocatorHydration`: sincroniza el estado global con la respuesta inicial de la API.
+- **Capa de Presentación (UI Layer)**: componentes atómicos (Figma-driven) desacoplados de la lógica.
+
+## Características destacadas
+
+- **Fidelidad visual y tipografía**: Poppins Bold 700 con medidas del diseño (64px, line-height 56px, letter-spacing -3%).
+- **Inteligencia responsiva**:
+	- Desktop (≥1024px): grid de 3 columnas y controles de paginación posicionados absolutamente.
+	- iPad (768–1023px): selector custom (dropdown) para mejor ergonomía táctil.
+	- Mobile (<768px): botón `Ver direcciones` a `w-full` siguiendo la Ley de Fitts.
+- **Selector personalizado**: reemplazo del `<select>` nativo por un pseudo-select estilizado (Z-index 50) para consistencia visual.
+- **Integración con Google Maps**: construcción dinámica de búsquedas como:
+
+```
+https://www.google.com/maps/search/Farmacia+Xana+En+[Nombre_Ciudad]
+```
+
+## Instalación
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Iniciar entorno de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Compilar para producción:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estructura relevante del proyecto
 
-## Learn More
+- `src/features/locator` — lógica y componentes del localizador.
+- `src/shared/components` — componentes UI reutilizables.
 
-To learn more about Next.js, take a look at the following resources:
+## Autor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Felix Bonillo — Arquitecto responsable (Prueba técnica: Farmacia Xana)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
