@@ -1,4 +1,4 @@
-# Farmacia Xana — Store Locator System
+# Farmacia Xana — Seccion de Localizacion
 
 Implementación técnica de alta fidelidad del sistema de localización de sucursales de Farmacia Xana.
 
